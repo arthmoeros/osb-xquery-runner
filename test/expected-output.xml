@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ns2:SampleTargetRequest xmlns:ns2="http://sample.target/request">
+   <passedRequest>000  0000111111</passedRequest>
+   <passedNumber>1234</passedNumber>
+   <passedChars>testing</passedChars>
+   <passedChars>xquerytest</passedChars>
+</ns2:SampleTargetRequest>

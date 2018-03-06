@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/osb/lib/modules/oracle.servicebus.resources.xquery.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.xdk/xqjapi.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/wlserver/modules/com.bea.core.xml.xmlbeans.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.xdk/oxquery.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.xdk/xmlparserv2.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/com.bea.core.utils.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/antlr-runtime-3.4.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.xdk/oxquery-ee.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/oracle.xdk/oxquery-xmlbeans-interop.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/oracle_common/modules/com.bea.core.xquery_1.8.0.0.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/osb/lib/modules/oracle.servicebus.utils.jar"/>
+	<classpathentry kind="lib" path="/home/asaavedra/Oracle/Middleware/Oracle_Home/wlserver/modules/com.bea.core.antlr.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

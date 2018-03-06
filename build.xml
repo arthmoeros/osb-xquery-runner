@@ -1,0 +1,97 @@
+<!--
+	OSB XQuery Runner buildfile
+	
+	Environment variable "ORACLE_HOME" must be set to wherever is **/Oracle/Middleware/Oracle_Home
+	this is necessary for locating jar dependencies
+	
+	To run use:
+	> ant run -DxqueryRunnerParams "xqueryToRun.xqy output.xml param1=parameter1.xml param2=parameter2 paramN=parameterN"
+	
+	To quick test use:
+	> ant test
+-->
+<project name="OSB_XQuery_Runner" default="dist" basedir=".">
+	<description>OSB XQuery Runner buildfile</description>
+	<property name="xqueryRunnerParams" value="" />
+
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+	<property environment="env" />
+	
+	<filelist id="oracleJarDependencies">
+		<file name="${env.ORACLE_HOME}/osb/lib/modules/oracle.servicebus.resources.xquery.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/oracle.xdk/xqjapi.jar" />
+		<file name="${env.ORACLE_HOME}/wlserver/modules/com.bea.core.xml.xmlbeans.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/oracle.xdk/oxquery.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/oracle.xdk/xmlparserv2.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/com.bea.core.utils.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/antlr-runtime-3.4.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/oracle.xdk/oxquery-ee.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/oracle.xdk/oxquery-xmlbeans-interop.jar" />
+		<file name="${env.ORACLE_HOME}/oracle_common/modules/com.bea.core.xquery_1.8.0.0.jar" />
+		<file name="${env.ORACLE_HOME}/osb/lib/modules/oracle.servicebus.utils.jar" />
+		<file name="${env.ORACLE_HOME}/wlserver/modules/com.bea.core.antlr.jar" />
+	</filelist>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false" debug="true">
+			<classpath>
+				<filelist refid="oracleJarDependencies" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<mkdir dir="${dist}" />
+		<jar jarfile="${dist}/OSB_XQuery_Runner.jar" basedir="${build}" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+
+	<target name="run-xquery" depends="dist">
+		<java classname="common.arthmoeros.osb.xquery.XQueryRunner">
+			<classpath>
+				<filelist>
+					<file name="./dist/OSB_XQuery_Runner.jar" />
+				</filelist>
+				<filelist refid="oracleJarDependencies" />
+			</classpath>
+			<arg line="${xqueryRunnerParams}" />
+		</java>
+	</target>
+
+	<target name="run" depends="run-xquery, clean" />
+
+	<target name="test" depends="setup-test, run, post-test" />
+
+	<target name="setup-test">
+		<propertyreset name="xqueryRunnerParams" value="test/test.xqy test/temp-output.xml request=test/input.xml number=1234 chars3=testing chars2=xquerytest" />
+	</target>
+
+	<target name="post-test">
+		<fail message="XQuery Test Failed!, outcome is not as expected, check output file test/temp-output.xml">
+			<condition>
+				<not>
+					<filesmatch file1="test/temp-output.xml" file2="test/expected-output.xml" />
+				</not>
+			</condition>
+		</fail>
+		<delete file="test/temp-output.xml" />
+	</target>
+
+	<scriptdef name="propertyreset" language="javascript" description="Allows to assign @{property} new value">
+		<attribute name="name" />
+		<attribute name="value" />
+	        project.setProperty(attributes.get("name"), attributes.get("value"));
+	</scriptdef>
+
+</project>
